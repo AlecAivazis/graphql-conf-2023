@@ -1,5 +1,6 @@
 import { gql, useQuery } from "urql";
 import { useSession } from "./Root";
+import { Link } from "react-router-dom";
 
 function Home({ children }: { children?: React.ReactNode }) {
   const session = useSession();
@@ -13,6 +14,24 @@ function Home({ children }: { children?: React.ReactNode }) {
           description
           billboard {
             source
+          }
+        }
+        genres {
+          edges {
+            node {
+              name
+              shows {
+                edges {
+                  node {
+                    id
+                    name
+                    billboard {
+                      source
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -37,7 +56,26 @@ function Home({ children }: { children?: React.ReactNode }) {
       </nav>
       <div className="absolute z-10" style={{ top: "calc(56.25vw - 100px)" }}>
         <article className="flex flex-col w-100" style={{}}>
-          {children}
+          <div className="flex flex-col gap-10">
+            {homeScreen.data.genres.edges.map(({ node: genre }, i) => (
+              <div key={i} className="rounded-lg text-white pl-12">
+                <h2 className="text-lg mb-4">{genre.name}</h2>
+                <div className="flex flex-row gap-1">
+                  {genre.shows.edges.map(({ node: show }) => {
+                    return (
+                      <Link
+                        to={`/shows/${show.id}`}
+                        style={{ width: 233, height: 130 }}
+                        key={show.name}
+                      >
+                        <img src={show.billboard.source} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
         </article>
       </div>
 
