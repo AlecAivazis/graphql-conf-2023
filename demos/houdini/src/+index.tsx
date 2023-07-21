@@ -7,7 +7,7 @@ export default function App({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="/dist/output.css" />
-        <title>My App</title>
+        <title>Hello Houdini</title>
       </head>
       <body>
         <ErrorBoundary>{children}</ErrorBoundary>
