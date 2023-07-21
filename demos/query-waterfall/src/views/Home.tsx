@@ -3,15 +3,7 @@ import { gql, useQuery } from "urql";
 import { useSession } from "./Root";
 import { Link } from "react-router-dom";
 
-export default function () {
-  return (
-    <React.Suspense fallback={<LoadingState />}>
-      <Home />
-    </React.Suspense>
-  );
-}
-
-function Home() {
+export default function Home() {
   const session = useSession();
 
   const [homeScreen] = useQuery({
