@@ -1,0 +1,28 @@
+query HomeScreen {
+  suggestion {
+    id
+    name
+    description
+    billboard {
+      source
+    }
+  }
+  genres {
+    edges {
+      node{
+        name
+        shows{
+          edges  {
+            node {
+              id
+              name
+              billboard {
+                source
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

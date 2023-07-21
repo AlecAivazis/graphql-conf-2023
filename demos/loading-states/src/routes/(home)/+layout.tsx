@@ -38,12 +38,12 @@ export default function ({ Session, HomeScreen, children }: LayoutProps) {
             <button className="rounded-lg billboard-button w-20 bg-white text-lg text-black">
               Play
             </button>
-            <a href={`/shows/${HomeScreen.suggestion.id}`}
+            <button
               className="rounded-lg billboard-button bg-button-transparent text-lg text-white "
               style={{ width: 125 }}
             >
               More Info
-            </a>
+            </button>
           </div>
         </div>
         <div className="billboard-shade z-0" />
