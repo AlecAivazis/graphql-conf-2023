@@ -1,9 +1,8 @@
-import { Link, isPending } from "$houdini";
+import { Link } from "$houdini";
 import { PageProps } from "./$types";
 
 export default function ({ HomeScreen, Session }: PageProps) {
   return (
-
     <main className="flex-col relative">
       <nav
         className="flex flex-row h-12 justify-end items-center pr-10 py-10 sticky top-0 z-10"
@@ -21,46 +20,26 @@ export default function ({ HomeScreen, Session }: PageProps) {
       </nav>
       <div className="absolute z-10" style={{ top: "calc(56.25vw - 100px)" }}>
         <article className="flex flex-col w-100" style={{}}>
-
-    <div className="flex flex-col gap-10">
-      {HomeScreen.genres.edges.map(({ node: genre }, i) => (
-        <div key={i} className="rounded-lg text-white pl-12">
-          <h2 className="text-lg mb-4">
-            {isPending(genre.name) ? (
-              <div className="pulsate h-5 w-14" />
-            ) : (
-              genre.name
-            )}
-          </h2>
-          <div className="flex flex-row gap-1">
-            {genre.shows.edges.map(({ node: show }, i) => {
-              if (isPending(show)) {
-                return (
-                  <Link
-                    href="#"
-                    className="pulsate"
-                    style={{ width: 233, height: 130 }}
-                    key={i}
-                  >
-                    <div className="pulsate" />
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  href={`/shows/${show.id}`}
-                  style={{ width: 233, height: 130 }}
-                  key={show.name}
-                >
-                  <img src={show.billboard.source} />
-                </Link>
-              );
-            })}
+          <div className="flex flex-col gap-10">
+            {HomeScreen.genres.edges.map(({ node: genre }, i) => (
+              <div key={i} className="rounded-lg text-white pl-12">
+                <h2 className="text-lg mb-4">{genre.name}</h2>
+                <div className="flex flex-row gap-1">
+                  {genre.shows.edges.map(({ node: show }, i) => {
+                    return (
+                      <Link
+                        href={`/shows/${show.id}`}
+                        style={{ width: 233, height: 130 }}
+                        key={show.name}
+                      >
+                        <img src={show.billboard.source} />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-      ))}
-    </div>
         </article>
       </div>
 
@@ -79,7 +58,8 @@ export default function ({ HomeScreen, Session }: PageProps) {
             <button className="rounded-lg billboard-button w-20 bg-white text-lg text-black">
               Play
             </button>
-            <a href={`/shows/${HomeScreen.suggestion.id}`}
+            <a
+              href={`/shows/${HomeScreen.suggestion.id}`}
               className="rounded-lg billboard-button bg-button-transparent text-lg text-white "
               style={{ width: 125 }}
             >
@@ -91,6 +71,5 @@ export default function ({ HomeScreen, Session }: PageProps) {
         <div className="billboard-bottom-vignette" />
       </aside>
     </main>
-
   );
 }
