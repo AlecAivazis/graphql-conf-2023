@@ -1,0 +1,10 @@
+query HomeScreen {
+  suggestion {
+    id
+    name
+    description
+    billboard {
+      source
+    }
+  }
+}
