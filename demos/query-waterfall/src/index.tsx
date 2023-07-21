@@ -15,11 +15,7 @@ const client = new Client({
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <React.Suspense fallback="loading...">
-        <Home />
-      </React.Suspense>
-    ),
+    element: <Home />,
   },
 ]);
 

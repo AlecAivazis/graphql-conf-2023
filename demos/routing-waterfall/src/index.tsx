@@ -16,11 +16,7 @@ const HomeLazy = React.lazy(() => import("./views/Home.tsx"));
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <React.Suspense fallback="loading...">
-        <HomeLazy />
-      </React.Suspense>
-    ),
+    element: <HomeLazy />,
   },
 ]);
 
