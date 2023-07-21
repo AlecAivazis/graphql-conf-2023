@@ -2,7 +2,7 @@ import { gql, useQuery } from "urql";
 import { useSession } from "./Root";
 import { Link } from "react-router-dom";
 
-function Home({ children }: { children?: React.ReactNode }) {
+function Home() {
   const session = useSession();
 
   const [homeScreen] = useQuery({
