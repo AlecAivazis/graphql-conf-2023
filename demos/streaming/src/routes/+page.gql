@@ -1,0 +1,28 @@
+query ShowList {
+  suggestion @loading {
+    name
+    id
+    description
+    billboard {
+      source
+    }
+  }
+  genres(delay: 2000) @loading {
+    edges @loading(count: 10) {
+      node @loading {
+        name @loading
+        shows @loading {
+          edges @loading(count: 5) {
+            node @loading {
+              id
+              name
+              billboard {
+                source
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
