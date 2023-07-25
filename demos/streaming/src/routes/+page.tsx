@@ -1,66 +1,50 @@
 import { Link, isPending } from "$houdini";
 import { PageProps } from "./$types";
 
-export default function ({ Session, ShowList }: PageProps) {
+export default function ({ ShowList }: PageProps) {
   return (
-    <main className="flex-col relative">
-      <nav
-        className="flex flex-row h-12 justify-end items-center pr-10 py-10 sticky top-0 z-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent)",
-        }}
-      >
-        <img
-          src={Session.viewer?.profile?.source}
-          height={50}
-          width={50}
-          className="rounded shadow-lg"
-        />
-      </nav>
-      <div className="absolute z-10" style={{ top: "calc(56.25vw - 100px)" }}>
-        <article className="flex flex-col w-100" style={{}}>
-          <div className="flex flex-col gap-10">
-            {ShowList.genres.edges.map(({ node: genre }, i) => (
-              <div key={i} className="rounded-lg text-white pl-12">
-                <h2 className="text-lg mb-4">
-                  {isPending(genre.name) ? (
-                    <div className="pulsate h-5 w-14" />
-                  ) : (
-                    genre.name
-                  )}
-                </h2>
-                <div className="flex flex-row gap-1">
-                  {genre.shows.edges.map(({ node: show }, i) => {
-                    if (isPending(show)) {
-                      return (
-                        <Link
-                          href="#"
-                          className="pulsate"
-                          style={{ width: 233, height: 130 }}
-                          key={i}
-                        >
-                          <div className="pulsate" />
-                        </Link>
-                      );
-                    }
-
+    <>
+      <article className="flex flex-col w-100" style={{}}>
+        <div className="flex flex-col gap-10">
+          {ShowList.genres.edges.map(({ node: genre }, i) => (
+            <div key={i} className="rounded-lg text-white pl-12">
+              <h2 className="text-lg mb-4">
+                {isPending(genre.name) ? (
+                  <div className="pulsate h-5 w-14" />
+                ) : (
+                  genre.name
+                )}
+              </h2>
+              <div className="flex flex-row gap-1">
+                {genre.shows.edges.map(({ node: show }, i) => {
+                  if (isPending(show)) {
                     return (
                       <Link
-                        href={`/shows/${show.id}`}
+                        href="#"
+                        className="pulsate"
                         style={{ width: 233, height: 130 }}
-                        key={show.name}
+                        key={i}
                       >
-                        <img src={show.billboard.source} />
+                        <div className="pulsate" />
                       </Link>
                     );
-                  })}
-                </div>
+                  }
+
+                  return (
+                    <Link
+                      href={`/shows/${show.id}`}
+                      style={{ width: 233, height: 130 }}
+                      key={show.name}
+                    >
+                      <img src={show.billboard.source} />
+                    </Link>
+                  );
+                })}
               </div>
-            ))}
-          </div>
-        </article>
-      </div>
+            </div>
+          ))}
+        </div>
+      </article>
 
       {!isPending(ShowList.suggestion) && (
         <aside
@@ -90,6 +74,6 @@ export default function ({ Session, ShowList }: PageProps) {
           <div className="billboard-bottom-vignette" />
         </aside>
       )}
-    </main>
+    </>
   );
 }
